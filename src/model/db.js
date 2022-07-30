@@ -5,7 +5,7 @@ class Connection {
     // Имя базы данных MongoDB
     this._dbName = process.env.DB_NAME || 'node-todo'
     // URL MongoDB для подключения
-    this._url = "mongodb+srv://youngwow:GDZ669WIYUG78XFl@cluster-learn-mongodb.id3hx.mongodb.net/?retryWrites=true&w=majority";
+    this._url = process.env.DB_CONN_STRING
     // process.env.DB_CONN_STRING
     // Объект класса MongoClient: https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html
     this._client = undefined
