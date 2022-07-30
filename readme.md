@@ -7,6 +7,9 @@
 
 За основу фронтенд-части приложения взят проект TodoMVC: https://todomvc.com/
 
+Для запуска измените URL MongoDB для подключения: https://github.com/youngwow/web-application/blob/b70ace3a3f60edf29d86ae405de1f17a6501432f/src/model/db.js#L8
+и https://github.com/youngwow/web-application/blob/b70ace3a3f60edf29d86ae405de1f17a6501432f/.env#L6
+
 ## Полезные команды
 
 * `npm start` - запуск приложения
