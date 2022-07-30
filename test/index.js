@@ -4,4 +4,3 @@ require('dotenv').config()
 afterEach(() => {
   sinon.restore()
 })
-
