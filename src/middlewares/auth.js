@@ -22,7 +22,7 @@ async function viewAuth (ctx, next) {
     auth.assertAuthenticated(ctx)
   } catch (err) {
     /*
-      TODO [Урок 5.2]: Переадресуйте пользователя, не прошедших аутентификацию, на страницу /login
+      [Урок 5.2]: Переадресуйте пользователя, не прошедших аутентификацию, на страницу /login
 
       Подсказка: для непрошедших аутентификацию пользователей переменная err будет иметь тип AuthenticationError
       (`err instanceof AuthenticationError` ==> true)

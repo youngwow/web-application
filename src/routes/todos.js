@@ -44,7 +44,7 @@ function parseFilterValue (value) {
 function parseTodo (requestBody) {
   const todo = {
     /*
-      TODO [Урок 4.2]: Заполните описание задачи списка дел:
+      [Урок 4.2]: Заполните описание задачи списка дел:
       {
         title: строка
         completed: boolean
@@ -69,7 +69,7 @@ router.use(apiAuth)
 router.get('/', totalMiddleware, async (ctx, next) => {
   const { contentType, ...query } = ctx.query
   /*
-      TODO [Урок 4.1]: Заполните значение переменной filter.
+      [Урок 4.1]: Заполните значение переменной filter.
 
       Значение переменной filter используется в функции #getTodos в файле 'src/model/todo.js'.
       Переменная filter должна содержать параметры запроса к базе данных на выборку записей списка дел.
@@ -79,13 +79,13 @@ router.get('/', totalMiddleware, async (ctx, next) => {
       Для преобразования типов данных входных параметров используйте функцию #parseFilterValue
     */
   /*
-      TODO [Урок 5.3]: Добавьте фильтр по email-адреса пользователя при получении записей из БД
+      [Урок 5.3]: Добавьте фильтр по email-адреса пользователя при получении записей из БД
     */
   const filter = Object.entries(query).reduce((result, [key, value]) => {
     result[key] = parseFilterValue(value);
     return result
   }, {})
-  // filter.email = ctx.state.user.email
+  filter.email = ctx.state.user.email
   // const filter = Object
   //   .entries(query)
   //   .reduce((filterObject, [key, value]) => {
@@ -110,13 +110,14 @@ router.get('/', totalMiddleware, async (ctx, next) => {
 router.get('/:id', async (ctx, next) => {
   const result = await getTodo({
     /*
-      TODO [Урок 4.1]: Реализуйте фильтр записей списка дел по идентификатору.
+      [Урок 4.1]: Реализуйте фильтр записей списка дел по идентификатору.
 
       Прочитайте значение параметра _id из URL-адреса.
     */
-    _id: ctx.params.id
+    _id: ctx.params.id,
+    email: ctx.state.user.email
     /*
-      TODO [Урок 5.3]: Добавьте фильтр по email-адреса пользователя при получении записей из БД
+      [Урок 5.3]: Добавьте фильтр по email-адреса пользователя при получении записей из БД
     */
   })
   if (!result) {
@@ -131,7 +132,7 @@ router.get('/:id', async (ctx, next) => {
 router.post('/', koaBody({ multipart: true }), totalMiddleware, async (ctx, next) => {
   if (ctx.request.body.contentType === 'todotxt') {
     /*
-      TODO [Урок 5.3]: Добавьте email-адрес пользователя к записям TODO
+      [Урок 5.3]: Добавьте email-адрес пользователя к записям TODO
 
       Используйте второй аргумент функции #createTodosFromText.
       В случае необходимости, реализуйте недостающую логику в функции #createTodosFromText
@@ -147,7 +148,7 @@ router.post('/', koaBody({ multipart: true }), totalMiddleware, async (ctx, next
     email: ctx.state.user.email
   }
   /*
-    TODO [Урок 5.3]: Добавьте email-адрес пользователя при создании записи в списке дел
+    [Урок 5.3]: Добавьте email-адрес пользователя при создании записи в списке дел
     todo.email = ...
   */
   const id = await createTodo(todo)
@@ -158,9 +159,10 @@ router.post('/', koaBody({ multipart: true }), totalMiddleware, async (ctx, next
 // Удаление записи по идентификатору
 router.delete('/:id', totalMiddleware, async (ctx, next) => {
   const result = await deleteTodo({
-    _id: ctx.params.id
+    _id: ctx.params.id,
+    email: ctx.state.user.email
     /*
-      TODO [Урок 5.3]: Добавьте проверку email-адреса пользователя при удалении записей из БД
+      [Урок 5.3]: Добавьте проверку email-адреса пользователя при удалении записей из БД
     */
   })
   if (!result) {
@@ -175,22 +177,17 @@ router.patch('/:id', koaBody(), totalMiddleware, async (ctx, next) => {
   //   console.log(`${key}: ${value}`);
   // }
   const result = await updateTodo({
-    _id: ctx.params.id
+    _id: ctx.params.id,
+    email: ctx.state.user.email
     /*
-      TODO [Урок 5.3]: Добавьте проверку email-адреса пользователя при обновлении записей в БД
+      [Урок 5.3]: Добавьте проверку email-адреса пользователя при обновлении записей в БД
     */
   }, ctx.request.body)
   // {
   //   /*
-  //     TODO [Урок 4.3]: Заполните поля, которые необходимо обновить.
+  //     [Урок 4.3]: Заполните поля, которые необходимо обновить.
   //     Получите новые значения полей в объекте `ctx.request.body`
   //   */
-  //
-  // Object.entries(ctx.request.body).reduce((res, [key, value]) => {
-  //   res[key] = parseFilterValue(value);
-  //   return res;
-  // }, {})
-  // }
   if (!result) {
     throw new NotFoundError(`todo with ID ${ctx.params.id} is not found`)
   }
