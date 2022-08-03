@@ -136,7 +136,7 @@ router.post('/', koaBody({ multipart: true }), totalMiddleware, async (ctx, next
       В случае необходимости, реализуйте недостающую логику в функции #createTodosFromText
     */
     const result = await createTodosFromText(ctx.request.files.todotxt.path, ctx.state.user.email)
-    ctx.body = result
+    ctx.body = result.ops
     ctx.status = 201
     return
   }
