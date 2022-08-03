@@ -149,6 +149,10 @@ async function createTodosFromText (filePath, email) {
 
     Верните массив созданных записей списка дел
   */
+  return col.insertMany(todos.map(todo => ({
+    ...todo,
+    email
+  })))
 }
 
 /**

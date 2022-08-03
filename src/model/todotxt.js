@@ -13,8 +13,9 @@ function exportTodoTxt (todo) {
     Используйте значения аргумента todo, чтобы заполнить поля объекта todotxt
   */
   todotxt.text = todo.title;
-  todotxt.complete = todo.completed ?? false;
-  todotxt.completed = todo.completedAt ?? null;
+  todotxt.complete = todo.completed; // ?? false;
+  todotxt.completed = todo.completedAt; //?? null;
+  todotxt.email = todo.email; // ?? null;
   return todotxt.toString() + '\n';
 }
 
@@ -25,11 +26,13 @@ function exportTodoTxt (todo) {
  */
 function importTodoTxt (fileContent) {
   const todotxts = TodoTxt.parse(fileContent.trim())
-  return todotxts.map(todotxt => ({
+  const result = todotxts.map(todotxt => ({
     title: todotxt.text,
     completed: todotxt.complete,
-    completedAt: todotxt.completed
+    completedAt: todotxt.completed,
+    //email: todotxt.email
   }))
+  return result
 }
 
 module.exports = {
