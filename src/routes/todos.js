@@ -67,7 +67,7 @@ router.use(apiAuth)
 
 // Получение списка задач. Фильтры задаются параметрами GET-запроса
 router.get('/', totalMiddleware, async (ctx, next) => {
-  const { contentType } = ctx.query
+  const { contentType, ...query } = ctx.query
   /*
       TODO [Урок 4.1]: Заполните значение переменной filter.
 
@@ -81,10 +81,18 @@ router.get('/', totalMiddleware, async (ctx, next) => {
   /*
       TODO [Урок 5.3]: Добавьте фильтр по email-адреса пользователя при получении записей из БД
     */
-  const filter = Object.entries(ctx.query).reduce((result, [key, value]) => {
-    result[key] = parseFilterValue(value);
-    return result
-  }, {})
+  // const filter = Object.entries(ctx.query).reduce((result, [key, value]) => {
+  //   result[key] = parseFilterValue(value);
+  //   return result
+  // }, {})
+  const filter = Object
+    .entries(query)
+    .reduce((filterObject, [key, value]) => {
+      return {
+        ...filterObject,
+        [key]: parseFilterValue(value),
+      }
+    }, { email: ctx.state.user.email })
   const cursor = getTodos(filter)
   switch (contentType) {
     case 'todotxt':
@@ -127,13 +135,16 @@ router.post('/', koaBody({ multipart: true }), totalMiddleware, async (ctx, next
       Используйте второй аргумент функции #createTodosFromText.
       В случае необходимости, реализуйте недостающую логику в функции #createTodosFromText
     */
-    const result = await createTodosFromText(ctx.request.files.todotxt.path)
+    const result = await createTodosFromText(ctx.request.files.todotxt.path, ctx.state.user.email)
     ctx.body = result
     ctx.status = 201
     return
   }
 
-  const todo = parseTodo(ctx.request.body)
+  const todo = {
+    ...parseTodo(ctx.request.body),
+    email: ctx.state.user.email
+  }
   /*
     TODO [Урок 5.3]: Добавьте email-адрес пользователя при создании записи в списке дел
     todo.email = ...
