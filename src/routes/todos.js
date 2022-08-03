@@ -81,18 +81,19 @@ router.get('/', totalMiddleware, async (ctx, next) => {
   /*
       TODO [Урок 5.3]: Добавьте фильтр по email-адреса пользователя при получении записей из БД
     */
-  // const filter = Object.entries(ctx.query).reduce((result, [key, value]) => {
-  //   result[key] = parseFilterValue(value);
-  //   return result
-  // }, {})
-  const filter = Object
-    .entries(query)
-    .reduce((filterObject, [key, value]) => {
-      return {
-        ...filterObject,
-        [key]: parseFilterValue(value),
-      }
-    }, { email: ctx.state.user.email })
+  const filter = Object.entries(query).reduce((result, [key, value]) => {
+    result[key] = parseFilterValue(value);
+    return result
+  }, {})
+  // filter.email = ctx.state.user.email
+  // const filter = Object
+  //   .entries(query)
+  //   .reduce((filterObject, [key, value]) => {
+  //     return {
+  //       ...filterObject,
+  //       [key]: parseFilterValue(value),
+  //     }
+  //   }, { email: ctx.state.user.email })
   const cursor = getTodos(filter)
   switch (contentType) {
     case 'todotxt':
@@ -136,7 +137,7 @@ router.post('/', koaBody({ multipart: true }), totalMiddleware, async (ctx, next
       В случае необходимости, реализуйте недостающую логику в функции #createTodosFromText
     */
     const result = await createTodosFromText(ctx.request.files.todotxt.path, ctx.state.user.email)
-    ctx.body = result.ops
+    ctx.body = result
     ctx.status = 201
     return
   }
