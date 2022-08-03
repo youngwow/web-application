@@ -48,7 +48,7 @@ function _mapObjectId (query = {}) {
 async function createTodo (data) {
   const col = dbConnection.getCollection(COLLECTION)
   /*
-    TODO [Урок 4.2]: Реализуйте логику сохранения новой записи списка дел в базу данных
+    [Урок 4.2]: Реализуйте логику сохранения новой записи списка дел в базу данных
 
     Используйте функцию col.insertOne [http://mongodb.github.io/node-mongodb-native/3.5/api/Collection.html#insertOne]:
       await col.insertOne(<описание нового документа>)
@@ -65,7 +65,7 @@ async function createTodo (data) {
 async function deleteTodo (query) {
   const col = dbConnection.getCollection(COLLECTION)
   /*
-    TODO [Урок 4.4]: Реализуйте логику удаления записи списка дел из базы данных
+    [Урок 4.4]: Реализуйте логику удаления записи списка дел из базы данных
 
     Используйте функцию col.deleteOne [http://mongodb.github.io/node-mongodb-native/3.5/api/Collection.html#deleteOne]:
       await col.deleteOne(<параметры поиска>)
@@ -95,7 +95,7 @@ function getTodos (query) {
 async function getTodo (query) {
   const col = dbConnection.getCollection(COLLECTION)
   /*
-    TODO [Урок 4.1]: Реализуйте логику получения одной записи списка дел из базы данных
+    [Урок 4.1]: Реализуйте логику получения одной записи списка дел из базы данных
 
     - Используйте функцию col.findOne [http://mongodb.github.io/node-mongodb-native/3.5/api/Collection.html#findOne]:
       await col.findOne(<параметры поиска>)
@@ -115,7 +115,7 @@ async function getTodo (query) {
 async function updateTodo (query, data) {
   const col = dbConnection.getCollection(COLLECTION)
   /*
-    TODO [Урок 4.3]: Реализуйте логику обновления записи todo.
+    [Урок 4.3]: Реализуйте логику обновления записи todo.
 
     - Используйте функцию col.updateOne [http://mongodb.github.io/node-mongodb-native/3.5/api/Collection.html#updateOne]:
       await col.updateOne(<параметры поиска>)
@@ -141,7 +141,7 @@ async function createTodosFromText (filePath, email) {
   const todos = importTodoTxt(fileContent.toString())
   const col = dbConnection.getCollection(COLLECTION)
   /*
-    TODO [Урок 4.6]: Сохраните импортированные записи списка дел в базу данных.
+    [Урок 4.6]: Сохраните импортированные записи списка дел в базу данных.
 
     Используйте переменную todos в качестве источника новых записей списка дел.
     Используйте функцию col.insertMany(<записи списка дел>)[http://mongodb.github.io/node-mongodb-native/3.5/api/Collection.html#insertMany],
@@ -166,13 +166,13 @@ async function getCount (user) {
   const [total, completed] = await Promise.all([
     col.countDocuments({
       /*
-        TODO [Урок 5.3]: Добавьте проверку email-адреса пользователя при получении количества записей в БД
+        [Урок 5.3]: Добавьте проверку email-адреса пользователя при получении количества записей в БД
       */
     }),
     col.countDocuments({
       completed: true,
       /*
-        TODO [Урок 5.3]: Добавьте проверку email-адреса пользователя при получении количества записей в БД
+        [Урок 5.3]: Добавьте проверку email-адреса пользователя при получении количества записей в БД
       */
     })
   ])
