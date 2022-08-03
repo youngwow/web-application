@@ -7,8 +7,10 @@
 
 За основу фронтенд-части приложения взят проект TodoMVC: https://todomvc.com/
 
-Для запуска измените URL MongoDB для подключения: https://github.com/youngwow/web-application/blob/b70ace3a3f60edf29d86ae405de1f17a6501432f/src/model/db.js#L8
-и https://github.com/youngwow/web-application/blob/b70ace3a3f60edf29d86ae405de1f17a6501432f/.env#L6
+Для запуска измените URL MongoDB для подключения: https://github.com/youngwow/web-application/blob/4531c9fd3cf8cac12f851d6a8b9bd124a87d6aa2/src/model/db.js#L8
+и https://github.com/youngwow/web-application/blob/4531c9fd3cf8cac12f851d6a8b9bd124a87d6aa2/.env#L6
+
+И GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET в том же файле.
 
 ## Полезные команды
 
