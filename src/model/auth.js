@@ -9,6 +9,9 @@ function assertAuthenticated (ctx) {
 
     Подсказка: Вы можете найти сведения о пользователе в объекте `ctx.state.user`
    */
+  if (!ctx.state?.user?.email){
+    throw new AuthenticationError;
+  }
 }
 
 module.exports = {
