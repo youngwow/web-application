@@ -140,7 +140,6 @@ router.post('/', koaBody({ multipart: true }), totalMiddleware, async (ctx, next
     ctx.body = result
     ctx.status = 201
     return
-
   }
 
   const todo = {
